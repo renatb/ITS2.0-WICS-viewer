@@ -1,4 +1,4 @@
-ITS2.0-WICS-player
+ITS2.0-WICS-viewer
 ==================
 
 WICS data viewer
