@@ -6,6 +6,7 @@
   {
     wics_prepare_design();
 
+    $('.wics-no-hint').click(function(event) { event.stopPropagation(); });
     $('.wics-hint').click(function(event) {
       event.stopPropagation();
       wics_process_click($(this));
@@ -209,8 +210,15 @@
       for (var j = i - 1; j >= 0; --j)
         if (wics_hints[j].opened) 
           { prev = wics_hints[j].note; break; }
+      $('.wics-sup', 0).remove();
+      var text = o.text();
+      if (!text)
+      {
+        obj = $('img[alt]', obj);
+        if (obj.length > 0) text = obj.attr("alt"); else text = '';
+      }
       var hint_html = '<div wics-id="' + i + '" class="wics-note">' +
-                       '<div class="wics-note-top"><div class="wics-note-name"> ' + o.text().replace(/[\r\n ]+/g, ' ').replace(/(?:(?:^\s+)|(?:\s+$)|(?:<[^>]+>))/g, '') + '</div><div class="wics-note-close">Close</div></div>' +
+                       '<div class="wics-note-top"><div class="wics-note-name"> ' + text.replace(/[\r\n ]+/g, ' ').replace(/(?:(?:^\s+)|(?:\s+$)|(?:<[^>]+>))/g, '') + '</div><div class="wics-note-close">Close</div></div>' +
                        '<div class="wics-note-text">' + wics_make_note(hint) + '</div>' +
                       '</div>';
       if (prev) prev.after(hint_html); else lowerframe.prepend(hint_html);
@@ -236,7 +244,7 @@
     for (var i = 0; i < wics_hints.length; ++i)
       if (wics_hints[i].opened)
       {
-        var sup = '<sup class="wics-sup">' + (++count) + '</span>';
+        var sup = '<sup class="wics-sup" dir="ltr">' + (++count) + '</span>';
         wics_hints[i].ref.after(sup);
         $('.wics-note-name', wics_hints[i].note).prepend(sup);
       }

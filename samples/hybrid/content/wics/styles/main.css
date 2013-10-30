@@ -9,6 +9,7 @@
 
 .wics-image           { vertical-align: middle;      }
 .wics-hint            { cursor: pointer;             }
+.wics-no-hint         { cursor: auto;                }
 .wics-active          { text-decoration: underline;  }
 
 .wics-note {

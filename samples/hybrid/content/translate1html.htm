@@ -4,13 +4,13 @@
   <meta charset="utf-8" /> 
   <title>HTML Link Example</title>
   <link href="translate1htmlrules.xml" rel="its-rules" />
- <link href="wics/styles/main.css" rel="stylesheet" type="text/css" /><script type="text/javascript" src="wics/jquery-1.9.1.min.js"></script><script type="text/javascript" src="wics/wics.js"></script><script type="text/javascript">wics_hints = [{translate:"no"}];</script></head>
- <body>
-  <img src="smiley.gif" alt="Smiley face" width="42" height="42" />
+ <link href="wics/styles/main.css" rel="stylesheet" type="text/css" /><script type="text/javascript" src="wics/jquery-1.9.1.min.js"></script><script type="text/javascript" src="wics/wics.js"></script><script type="text/javascript">wics_hints = [{translate:"no"},{translate:"no"},{translate:"no"}];</script></head>
+ <body><span wics-id="0" class="wics-hint">
+  <span class="wics-notranslate"><span wics-id="1" class="wics-hint"><img src="smiley.gif" alt="Smiley face" width="42" height="42" /></span></span>
   <p id="100" title="Text">
   This is the first paragraph. It has some
-   <code><span wics-id="0" class="wics-hint"><span class="wics-notranslate">un-translatable code</span></span></code>
+   <span wics-id="2" class="wics-hint"><code><span class="wics-notranslate">un-translatable code</span></code></span>
    .
   </p>
- </body>
+ </span></body>
 </html>
