@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8" /><link href="wics/styles/tags.css" rel="stylesheet" type="text/css" /><link href="wics/styles/main.css" rel="stylesheet" type="text/css" /><script type="text/javascript" src="wics/jquery-1.9.1.min.js"></script><script type="text/javascript" src="wics/wics.js"></script><script type="text/javascript">wics_hints = [{translate:"no"},{translate:"no"},{translate:"no"},{translate:"no"},{translate:"no"},{translate:"no"},{translate:"no"},{provenanceRecordsRef:[{tool:"onlinemtex",revPerson:"James Joyce",revOrg:"acme-CAT-v2.3",revTool:"mycat-v1.0",provRef:"http://www.examplelsp.com/excontent987/production/prov/e6354"}]},{translate:"no"},{translate:"no"},{translate:"no"}];</script></head><body>&lt;<span class="elemname">html</span> <span class="xmlnsname">xmlns</span>="<span class="xmlnsvalue">http://www.w3.org/1999/xhtml</span>"&gt;
+  &lt;<span class="elemname">head</span>&gt;
+    &lt;<span class="elemname">meta</span> <span class="attrname">charset</span>="<span class="text"><span wics-id="0" class="wics-hint"><span class="wics-notranslate">utf-8</span></span></span>" /&gt;
+    &lt;<span class="elemname">title</span>&gt;<span class="text">Test</span>&lt;/<span class="elemname">title</span>&gt;
+    &lt;<span class="elemname">script</span> <span class="attrname">id</span>="<span class="text"><span wics-id="1" class="wics-hint"><span class="wics-notranslate">pr1</span></span></span>" <span class="attrname">type</span>="<span class="text"><span wics-id="2" class="wics-hint"><span class="wics-notranslate">application/its+xml</span></span></span>"&gt;<span class="script">
+      &lt;its:provenanceRecords xml:id="pr1" xmlns:its="http://www.w3.org/2005/11/its"&gt;
+        &lt;its:provenanceRecord
+               tool="onlinemtex"
+               revPerson="James Joyce"
+               revTool="mycat-v1.0"
+               revOrg="acme-CAT-v2.3"
+               provRef="http://www.examplelsp.com/excontent987/production/prov/e6354"/&gt;
+      &lt;/its:provenanceRecords&gt;
+	</span>&lt;/<span class="elemname">script</span>&gt;
+    &lt;<span class="elemname">script</span> <span class="attrname">id</span>="<span class="text"><span wics-id="3" class="wics-hint"><span class="wics-notranslate">pr2</span></span></span>" <span class="attrname">type</span>="<span class="text"><span wics-id="4" class="wics-hint"><span class="wics-notranslate">application/its+xml</span></span></span>"&gt;<span class="script">
+	  &lt;its:provenanceRecords xml:id="pr2" xmlns:its="http://www.w3.org/2005/11/its"&gt;
+        &lt;its:provenanceRecord
+            person="John Doe"
+            org="legaltrans-ex"
+            revPerson="Tommy Atkins"
+            revOrg="vistatec"
+            provRef="http://www.vistatec.com/job-12-7-15-X31/reviewed/prov/re8573469"/&gt;
+      &lt;/its:provenanceRecords&gt;       
+    </span>&lt;/<span class="elemname">script</span>&gt;
+    &lt;<span class="elemname">script</span> <span class="attrname">type</span>="<span class="text"><span wics-id="5" class="wics-hint"><span class="wics-notranslate">application/its+xml</span></span></span>"&gt;<span class="script">   
+     &lt;its:rules xmlns:its="http://www.w3.org/2005/11/its" xmlns:h="http://www.w3.org/1999/xhtml" version="2.0"&gt;
+     &lt;its:param name="provenanceParam"&gt;prov-records-ref1&lt;/its:param&gt;
+	&lt;its:provRule selector="//*[@class=$provenanceParam]" provenanceRecordsRefPointer="h:a/@href"/&gt;
+     &lt;/its:rules&gt;
+    </span>&lt;/<span class="elemname">script</span>&gt;
+  &lt;/<span class="elemname">head</span>&gt;
+  &lt;<span class="elemname">body</span>&gt;
+    &lt;<span class="elemname">p</span> <span class="attrname">class</span>="<span class="text"><span wics-id="6" class="wics-hint"><span class="wics-notranslate">prov-records-ref1</span></span></span>"&gt;<span wics-id="7" class="wics-hint"><img src="wics/images/provenance1.png" class="wics-image" /><span>&lt;<span class="elemname">a</span> <span class="attrname">href</span>="<span class="text"><span wics-id="8" class="wics-hint"><span class="wics-notranslate">#pr1</span></span></span>"&gt;&lt;/<span class="elemname">a</span>&gt;<span class="text">This paragraph was translated from the machine.</span></span><img src="wics/images/provenance2.png" class="wics-image" /></span>&lt;/<span class="elemname">p</span>&gt;
+    &lt;<span class="elemname">p</span> <span class="attrname">class</span>="<span class="text"><span wics-id="9" class="wics-hint"><span class="wics-notranslate">prov-records-ref2</span></span></span>"&gt;&lt;<span class="elemname">a</span> <span class="attrname">href</span>="<span class="text"><span wics-id="10" class="wics-hint"><span class="wics-notranslate">#pr2</span></span></span>"&gt;&lt;/<span class="elemname">a</span>&gt;<span class="text">This text was translated directly by a person.</span>&lt;/<span class="elemname">p</span>&gt;
+  &lt;/<span class="elemname">body</span>&gt;
+&lt;/<span class="elemname">html</span>&gt;</body></html>
