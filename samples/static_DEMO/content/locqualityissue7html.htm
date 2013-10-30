@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Test</title>
+    <script type="application/its+xml" id="lq1"><![CDATA[
+      <its:locQualityIssues xml:id="lq1" xmlns:its="http://www.w3.org/2005/11/its">
+        <its:locQualityIssue
+          locQualityIssueType="misspelling"
+          locQualityIssueComment="'c'es' is unknown. Could be 'c'est'"
+          locQualityIssueSeverity="50"/>
+      </its:locQualityIssues>
+    ]]></script>
+    <style type="text/css"><![CDATA[.qaissue { background-color: yellow; } ]]></style>
+  <link href="wics.css" rel="stylesheet" type="text/css" xmlns="" /></head>
+  <body>
+    <p>
+      <span its-loc-quality-issues-ref="#lq1"><span class="locqualityissue">c'es</span></span> pourquoi il n'était pas coupable</p>
+  </body>
+</html>

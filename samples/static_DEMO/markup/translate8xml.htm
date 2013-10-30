@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8" /><link href="wics.css" rel="stylesheet" type="text/css" /><link href="wicstags.css" rel="stylesheet" type="text/css" /></head><body>&lt;<span class="elemname">topic</span> <span class="attrname">id</span>="<span class="text"><span class="notranslate">myTopic</span></span>"&gt;
+ &lt;<span class="elemname">title</span>&gt;<span class="text"><span class="notranslate">The ITS Topic</span></span>&lt;/<span class="elemname">title</span>&gt;
+ &lt;<span class="elemname">prolog</span>&gt;
+  &lt;<span class="elemname">its:rules</span> <span class="xmlnsname">xmlns:its</span>="<span class="xmlnsvalue">http://www.w3.org/2005/11/its</span>" <span class="attrname">version</span>="<span class="text"><span class="notranslate">2.0</span></span>"&gt;
+   &lt;<span class="elemname">its:translateRule</span> <span class="attrname">selector</span>="<span class="text"><span class="notranslate">//*</span></span>" <span class="attrname">translate</span>="<span class="text"><span class="notranslate">no</span></span>" /&gt;
+   &lt;<span class="elemname">its:translateRule</span> <span class="attrname">selector</span>="<span class="text"><span class="notranslate">//p</span></span>" <span class="attrname">translate</span>="<span class="text"><span class="notranslate">yes</span></span>" /&gt;
+   <span class="comment">&lt;!-- With these rules only the text "For the implementation of ITS, apply the rules in the order:"
+   and " The last rule wins." should end up translatable --&gt;</span> 
+   &lt;/<span class="elemname">its:rules</span>&gt;
+ &lt;/<span class="elemname">prolog</span>&gt;
+ &lt;<span class="elemname">body</span>&gt;
+  &lt;<span class="elemname">dl</span>&gt;
+   &lt;<span class="elemname">dlentry</span> <span class="attrname">id</span>="<span class="text"><span class="notranslate">tDataCat</span></span>"&gt;
+    &lt;<span class="elemname">dt</span>&gt;<span class="text"><span class="notranslate">Data category</span></span>&lt;/<span class="elemname">dt</span>&gt;
+    &lt;<span class="elemname">dd</span>&gt;<span class="text"><span class="notranslate">ITS defines </span></span>&lt;<span class="elemname">term</span>&gt;<span class="text"><span class="notranslate">data category</span></span>&lt;/<span class="elemname">term</span>&gt;<span class="text"><span class="notranslate"> as an abstract concept for a particular 
+    type of information for internationalization and localization of XML schemas and documents.</span></span>&lt;/<span class="elemname">dd</span>&gt;
+   &lt;/<span class="elemname">dlentry</span>&gt;
+  &lt;/<span class="elemname">dl</span>&gt;
+  &lt;<span class="elemname">p</span>&gt;<span class="text">For the implementation of ITS, apply the rules in the order:</span>&lt;/<span class="elemname">p</span>&gt;
+  &lt;<span class="elemname">ul</span>&gt;
+   &lt;<span class="elemname">li</span>&gt;<span class="text"><span class="notranslate">Default</span></span>&lt;/<span class="elemname">li</span>&gt;
+   &lt;<span class="elemname">li</span>&gt;<span class="text"><span class="notranslate">Rules in the schema</span></span>&lt;/<span class="elemname">li</span>&gt;
+   &lt;<span class="elemname">li</span>&gt;<span class="text"><span class="notranslate">Rules in the document instance</span></span>&lt;/<span class="elemname">li</span>&gt;
+   &lt;<span class="elemname">li</span>&gt;<span class="text"><span class="notranslate">Local attributes</span></span>&lt;/<span class="elemname">li</span>&gt;
+  &lt;/<span class="elemname">ul</span>&gt;
+  &lt;<span class="elemname">p</span>&gt;&lt;<span class="elemname">ph</span> <span class="attrname">xml:lang</span>="<span class="text"><span class="notranslate">fr</span></span>"&gt;<span class="text"><span class="notranslate">Et voilà !</span></span>&lt;/<span class="elemname">ph</span>&gt;<span class="text"> The last rule wins.</span>&lt;/<span class="elemname">p</span>&gt;
+ &lt;/<span class="elemname">body</span>&gt;
+&lt;/<span class="elemname">topic</span>&gt;
+</body></html>

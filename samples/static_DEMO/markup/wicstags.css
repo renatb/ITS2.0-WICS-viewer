@@ -1,0 +1,18 @@
+body {
+  white-space: pre-wrap;
+  font-family: Verdana; Arial; Helvetica; "sans-serif";
+  font-size: 10pt;
+  color: blue;
+  background-color: white;
+}
+
+.instruction     { color: blue;  }
+.comment         { color: grey;  }
+.script          { color: grey;  }
+.elemname        { color: brown; }
+.attrname        { color: brown; }
+.xmlnsname       { color: red;   }
+.xmlnsvalue      { color: red;   }
+.itsattrname     { color: brown; }
+.itsattrvalue    { color: grey;  }
+.text            { color: black; font-weight: bold; }

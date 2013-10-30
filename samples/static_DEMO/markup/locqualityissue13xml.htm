@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8" /><link href="wics.css" rel="stylesheet" type="text/css" /><link href="wicstags.css" rel="stylesheet" type="text/css" /></head><body><span class="instruction">&lt;?xml version="1.0"?&gt;</span>
+&lt;<span class="elemname">doc</span> <span class="xmlnsname">xmlns:its</span>="<span class="xmlnsvalue">http://www.w3.org/2005/11/its</span>" <span class="itsattrname">its:version</span>="<span class="itsattrvalue">2.0</span>"&gt;
+  &lt;<span class="elemname">file</span>&gt;
+    &lt;<span class="elemname">header</span>&gt;
+      &lt;<span class="elemname">its:rules</span> <span class="attrname">version</span>="<span class="text"><span class="notranslate">2.0</span></span>"&gt;
+        &lt;<span class="elemname">its:locQualityIssueRule</span> <span class="attrname">selector</span>="<span class="text"><span class="notranslate">//mrk[@type='x-itslq']</span></span>" <span class="attrname">locQualityIssuesRefPointer</span>="<span class="text"><span class="notranslate">@ref</span></span>" /&gt;
+      &lt;/<span class="elemname">its:rules</span>&gt;
+    &lt;/<span class="elemname">header</span>&gt;
+    &lt;<span class="elemname">unit</span> <span class="attrname">id</span>="<span class="text"><span class="notranslate">1</span></span>"&gt;
+      &lt;<span class="elemname">segment</span>&gt;
+        &lt;<span class="elemname">source</span>&gt;<span class="text">This is the content</span>&lt;/<span class="elemname">source</span>&gt;
+        &lt;<span class="elemname">target</span>&gt;&lt;<span class="elemname">mrk</span> <span class="attrname">type</span>="<span class="text"><span class="notranslate">x-itslq</span></span>" <span class="attrname">ref</span>="<span class="text"><span class="notranslate">#lq1</span></span>"&gt;<span class="text"><span class="locqualityissue">c'es</span></span>&lt;/<span class="elemname">mrk</span>&gt;<span class="text"> le contenu</span>&lt;/<span class="elemname">target</span>&gt;
+      &lt;/<span class="elemname">segment</span>&gt;
+      &lt;<span class="elemname">its:locQualityIssues</span> <span class="attrname">xml:id</span>="<span class="text"><span class="notranslate">lq1</span></span>"&gt;
+        &lt;<span class="elemname">its:locQualityIssue</span> <span class="attrname">locQualityIssueComment</span>="<span class="text"><span class="notranslate">'c'es' is unknown. Could be 'c'est'</span></span>" <span class="attrname">locQualityIssueSeverity</span>="<span class="text"><span class="notranslate">75</span></span>" <span class="attrname">locQualityIssueProfileRef</span>="<span class="text"><span class="notranslate">http://example.org/qaMovel/v1</span></span>" <span class="attrname">locQualityIssueEnabled</span>="<span class="text"><span class="notranslate">yes</span></span>" /&gt;
+      &lt;/<span class="elemname">its:locQualityIssues</span>&gt;
+    &lt;/<span class="elemname">unit</span>&gt;
+  &lt;/<span class="elemname">file</span>&gt;
+&lt;/<span class="elemname">doc</span>&gt;
+</body></html>

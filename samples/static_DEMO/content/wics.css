@@ -1,0 +1,9 @@
+.notranslate     { background-color: lightgrey; }
+.langinfo        { background-color: lightgrey; }
+.locnote         { background-color: yellow;    }
+.terminology     { background-color: lime;      }
+.textanalysis    { background-color: magenta;   }
+.locqualityissue { color: red;                  }
+.withintext      { color: deepskyblue;          }
+
+.itsimage        { vertical-align: middle; }
