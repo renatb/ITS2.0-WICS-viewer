@@ -1,0 +1,1 @@
+This folder contains ready to use utilities, preview scripts and sample files to check the file conversion capabilities and ITS metadata preview functionality
