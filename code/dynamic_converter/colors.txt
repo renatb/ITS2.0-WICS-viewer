@@ -1,0 +1,5 @@
+{
+    "fragmentBorder": "#333333",
+    "fragmentBorderActive": "#ff0000",
+    "tipHintHeaderBackground": "#ccceee"
+}
