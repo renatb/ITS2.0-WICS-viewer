@@ -1,0 +1,76 @@
+.wics-notranslate     { background-color: lightgrey; }
+.wics-langinfo        { background-color: lightgrey; }
+.wics-locnote         { background-color: yellow;    }
+.wics-terminology     { background-color: lime;      }
+.wics-textanalysis    { background-color: magenta;   }
+.wics-locqualityissue { color: red;                  }
+.wics-locqualityissue-disabled { color: black;       }
+.wics-withintext      { color: deepskyblue;          }
+
+.wics-image           { vertical-align: middle;      }
+.wics-hint            { cursor: pointer;             }
+.wics-no-hint         { cursor: auto;                }
+.wics-active          { text-decoration: underline;  }
+
+.wics-note {
+	border: 1px solid lightgrey;
+	border-radius: 5px;
+	position: relative;
+	margin-bottom: 10px;
+}
+		
+.wics-note-active {
+	border-color: black;
+}
+
+.wics-note-top {
+       	height: 35px;
+       	background: lightgrey;
+       	padding: 5px;
+       	border-radius: 5px 5px 0px 0px;
+        overflow-y: hidden;
+}
+	
+.wics-note-close {
+       	position: absolute;
+       	top: 8px;
+       	right: 10px;
+       	border-radius: 5px;
+       	color: red;
+       	padding: 5px;
+       	width: 100px;
+       	text-align: center;
+       	cursor: pointer;
+       	font-weight: bold;
+       	border: 1px solid #222;
+       	background: #eee;
+}
+		
+.wics-note-name {
+	margin-top: 10px;
+	margin-left: 10px;
+	font-weight: bold;
+}
+		
+.wics-note-text {
+	padding: 10px;
+}
+
+#wics-upperframe {
+	height: 250px;
+	overflow-y: auto;
+	overflow-x: auto;
+	border: 1px solid silver;
+	padding: 5px;
+	margin: 10px;
+}
+
+#wics-lowerframe {
+	height: 350px;
+	overflow-x: auto;
+	overflow-y: auto;
+	border: 1px solid silver;
+	padding: 5px;
+	margin: 15px 10px 10px 10px;
+        color: black;
+}

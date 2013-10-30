@@ -1,0 +1,1 @@
+To preview HTML files, copy wics folder to the same folder as the HTML files
