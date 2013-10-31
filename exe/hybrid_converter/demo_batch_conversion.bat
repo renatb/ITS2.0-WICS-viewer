@@ -1,0 +1,1 @@
+its2wics.exe "<input_path>\input.xml" "<output_path>\output.html"
