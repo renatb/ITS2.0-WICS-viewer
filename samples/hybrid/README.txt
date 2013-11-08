@@ -1,0 +1,1 @@
+To preview the ITS metadata, open any *_WICS.html or *_WICS.xml.html file in supported Web browser
