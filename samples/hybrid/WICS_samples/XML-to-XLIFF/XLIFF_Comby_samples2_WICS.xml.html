@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8" /><link href="wics/styles/tags.css" rel="stylesheet" type="text/css" /><link href="wics/styles/main.css" rel="stylesheet" type="text/css" /><script type="text/javascript" src="wics/jquery-1.9.1.min.js"></script><script type="text/javascript" src="wics/wics.js"></script><script type="text/javascript">wics_tips = [{translate:"no"},{translate:"no"},{translate:"no"},{locNote:"Date and time should be in YYYY-DD-MM HH:MM format.",locNoteType:"alert"},{idValue:"InvalidParameter"},{translate:"no"},{translate:"no"},{term:"yes",termInfoRef:"Terminology_global_UI_Tools.html"},{term:"yes",termInfoRef:"Terminology_global_UI_Customize.html"}];</script></head><body><span class="instruction">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+ &lt;<span class="elemname">doc</span> <span class="attrname">id</span>="<span class="text"><span wics-id="0" class="wics-tip"><span class="wics-notranslate">XLIFF_Comby_samples</span></span></span>" <span class="attrname">revisionNumber</span>="<span class="text"><span wics-id="1" class="wics-tip"><span class="wics-notranslate">2</span></span></span>" <span class="xmlnsname">xmlns:xlink</span>="<span class="xmlnsvalue">http://www.w3.org/1999/xlink</span>" <span class="xmlnsname">xmlns:its</span>="<span class="xmlnsvalue">http://www.w3.org/2005/11/its</span>" <span class="itsattrname">its:version</span>="<span class="itsattrvalue">2.0</span>"&gt;
+
+<span class="comment">&lt;!-- See http://www.w3.org/International/its/wiki/XLIFF_1.2_Mapping for reference --&gt;</span>
+
+<span class="comment">&lt;!-- SEC tag to combine PARA items into XLIFF group in this example only --&gt;</span>
+&lt;<span class="elemname">sec</span>&gt;
+&lt;<span class="elemname">para</span>&gt;<span class="text">The PRODUCT command prompt appears.</span>&lt;/<span class="elemname">para</span>&gt;
+&lt;<span class="elemname">para</span>&gt;<span class="text">Enter Date and Time in the following format:</span>&lt;/<span class="elemname">para</span>&gt;
+&lt;<span class="elemname">para</span>&gt;<span class="text">YYYY-MM-DD HH:MM</span>&lt;/<span class="elemname">para</span>&gt;
+&lt;/<span class="elemname">sec</span>&gt;
+
+&lt;<span class="elemname">sec</span>&gt;
+<span class="comment">&lt;!-- LOCALIZATION NOTE --&gt;</span>
+<span class="comment">&lt;!-- LOCALIZATION NOTE: The example of local localization note --&gt;</span>
+&lt;<span class="elemname">para</span>&gt;<span class="text">The following message appears: </span>&lt;<span class="elemname">msg</span> <span class="itsattrname">its:locNoteType</span>="<span class="itsattrvalue">alert</span>" <span class="itsattrname">its:locNote</span>="<span class="itsattrvalue">Date and time should be in YYYY-DD-MM HH:MM format.</span>" <span class="attrname">xml:id</span>="<span class="text"><span wics-id="2" class="wics-tip"><span class="wics-notranslate">InvalidParameter</span></span></span>"&gt;<span wics-id="4" class="wics-tip"><img src="wics/images/idvalue1.png" class="wics-image" /><span wics-id="3" class="wics-tip"><span><span class="text"><span class="wics-locnote">Invalid parameter</span></span></span></span><img src="wics/images/idvalue2.png" class="wics-image" /></span>&lt;/<span class="elemname">msg</span>&gt;&lt;/<span class="elemname">para</span>&gt;
+<span class="comment">&lt;!-- End of example --&gt;</span>
+
+<span class="comment">&lt;!-- TRANSLATE --&gt;</span>
+<span class="comment">&lt;!-- TRANSLATE: The example #1-1 of local rule --&gt;</span>
+&lt;<span class="elemname">para</span>&gt;<span class="text">SysPack includes drivers for many devices, such as printers, keyboards, and </span>&lt;<span class="elemname">trmark</span> <span class="itsattrname">its:translate</span>="<span class="itsattrvalue">no</span>"&gt;<span wics-id="5" class="wics-tip"><span><span class="text"><span class="wics-notranslate">USB</span></span></span></span>&lt;/<span class="elemname">trmark</span>&gt;&lt;/<span class="elemname">para</span>&gt;
+<span class="comment">&lt;!-- End of example --&gt;</span>
+
+<span class="comment">&lt;!-- TRANSLATE: The example #1-2 of customer's source XML markup only, no ITS rules apply --&gt;</span>
+<span class="comment">&lt;!-- NoLoc tags are parsed here as XLIFF protected inlines as per customer's INI settings --&gt;</span>
+&lt;<span class="elemname">para</span>&gt;&lt;<span class="elemname">NoLoc</span>&gt;<span class="text">SysPack</span>&lt;/<span class="elemname">NoLoc</span>&gt;<span class="text"> includes drivers for many hardware devices.</span>&lt;/<span class="elemname">para</span>&gt;
+<span class="comment">&lt;!-- End of example --&gt;</span>
+
+<span class="comment">&lt;!-- TRANSLATE: The example #1-3 of local rule with customer's source XML markup enriched with ITS markup --&gt;</span>
+&lt;<span class="elemname">para</span>&gt;&lt;<span class="elemname">trmark</span> <span class="itsattrname">its:translate</span>="<span class="itsattrvalue">no</span>"&gt;<span wics-id="6" class="wics-tip"><span><span class="text"><span class="wics-notranslate">&amp;lt;NoLoc&amp;gt;SysPack&amp;lt;/NoLoc&amp;gt;</span></span></span></span>&lt;/<span class="elemname">trmark</span>&gt;<span class="text"> includes drivers for printers, keyboards, and USB.</span>&lt;/<span class="elemname">para</span>&gt;
+<span class="comment">&lt;!-- End of example --&gt;</span>
+
+<span class="comment">&lt;!-- TERMINOLOGY --&gt;</span>
+<span class="comment">&lt;!-- TERMINOLOGY: The example of local ITS markup with external terminology comments --&gt;</span>
+&lt;<span class="elemname">para</span>&gt;<span class="text">In the left pane, select </span>&lt;<span class="elemname">msg</span> <span class="itsattrname">its:term</span>="<span class="itsattrvalue">yes</span>" <span class="itsattrname">its:termInfoRef</span>="<span class="itsattrvalue">Terminology_global_UI_Tools.html</span>"&gt;<span wics-id="7" class="wics-tip"><span><span class="text"><span class="wics-terminology">Tools</span></span></span></span>&lt;/<span class="elemname">msg</span>&gt;<span class="text"> menu, and then select </span>&lt;<span class="elemname">msg</span> <span class="itsattrname">its:term</span>="<span class="itsattrvalue">yes</span>" <span class="itsattrname">its:termInfoRef</span>="<span class="itsattrvalue">Terminology_global_UI_Customize.html</span>"&gt;<span wics-id="8" class="wics-tip"><span><span class="text"><span class="wics-terminology">Customize</span></span></span></span>&lt;/<span class="elemname">msg</span>&gt;<span class="text">.</span>&lt;/<span class="elemname">para</span>&gt;
+<span class="comment">&lt;!-- End of example --&gt;</span>
+&lt;/<span class="elemname">sec</span>&gt;
+
+&lt;/<span class="elemname">doc</span>&gt;</body></html>

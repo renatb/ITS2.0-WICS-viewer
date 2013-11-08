@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+
+   <script type="application/its+xml">  
+   <its:rules xmlns:its="http://www.w3.org/2005/11/its" xmlns:h="http://www.w3.org/1999/xhtml" version="2.0">
+   <its:translateRule selector="//h:section/h:p" translate="no" />
+   <its:locNoteRule locNoteType="description" selector="//h:div/h:span" locNotePointer="../h:p" />
+   </its:rules>
+   </script>
+
+   <meta charset="utf-8" />
+   <title>Example</title>
+  <link href="wics/styles/main.css" rel="stylesheet" type="text/css" /><script type="text/javascript" src="wics/jquery-1.9.1.min.js"></script><script type="text/javascript" src="wics/wics.js"></script><script type="text/javascript">wics_tips = [{locNoteType:"description",locNote:"Date and time should be in YYYY-DD-MM HH:MM format."},{locNoteType:"description",locNote:"The note added by Alex S"}];</script></head>
+  <body>
+  <div>
+The following message appears: <span wics-id="0" class="wics-tip"><span id="InvalidParameter"><span class="wics-locnote">Invalid parameter</span></span></span>.
+  <p>
+Date and time should be in YYYY-DD-MM HH:MM format.
+  </p>
+  </div>
+  <div>
+And here is some text added for the <span wics-id="1" class="wics-tip"><span id="webNote"><span class="wics-locnote">purposes of testing</span></span></span>.
+  <p>
+The note added by Alex S
+  </p>
+  </div>
+  </body>
+ </html>

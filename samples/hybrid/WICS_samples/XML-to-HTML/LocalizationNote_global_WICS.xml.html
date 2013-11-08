@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8" /><link href="wics/styles/tags.css" rel="stylesheet" type="text/css" /><link href="wics/styles/main.css" rel="stylesheet" type="text/css" /><script type="text/javascript" src="wics/jquery-1.9.1.min.js"></script><script type="text/javascript" src="wics/wics.js"></script><script type="text/javascript">wics_tips = [{translate:"no"},{translate:"no"},{translate:"no"},{translate:"no"},{translate:"no"},{translate:"no"},{locNoteType:"alert",locNote:"[XML note]: Date and time should be in YYYY-DD-MM HH:MM format."},{translate:"no"},{locNoteType:"alert",locNote:"[XML note]: The note added by Alex S"}];</script></head><body><span class="instruction">&lt;?xml version="1.0"?&gt;</span>
+  &lt;<span class="elemname">body</span>&gt;
+  &lt;<span class="elemname">head</span>&gt;
+  &lt;<span class="elemname">its:rules</span> <span class="xmlnsname">xmlns:its</span>="<span class="xmlnsvalue">http://www.w3.org/2005/11/its</span>" <span class="attrname">version</span>="<span class="text"><span wics-id="0" class="wics-tip"><span class="wics-notranslate">2.0</span></span></span>"&gt;
+
+  &lt;<span class="elemname">its:locNoteRule</span> <span class="attrname">locNoteType</span>="<span class="text"><span wics-id="1" class="wics-tip"><span class="wics-notranslate">alert</span></span></span>" <span class="attrname">selector</span>="<span class="text"><span wics-id="2" class="wics-tip"><span class="wics-notranslate">//msg[@id='InvalidParameter']</span></span></span>"&gt;
+  &lt;<span class="elemname">its:locNote</span>&gt;<span class="text">
+[XML note]: Date and time should be in YYYY-DD-MM HH:MM format.
+  </span>&lt;/<span class="elemname">its:locNote</span>&gt;
+  &lt;/<span class="elemname">its:locNoteRule</span>&gt;
+  &lt;<span class="elemname">its:locNoteRule</span> <span class="attrname">locNoteType</span>="<span class="text"><span wics-id="3" class="wics-tip"><span class="wics-notranslate">alert</span></span></span>" <span class="attrname">selector</span>="<span class="text"><span wics-id="4" class="wics-tip"><span class="wics-notranslate">//msg[@id='webNote']</span></span></span>"&gt;
+  &lt;<span class="elemname">its:locNote</span>&gt;<span class="text">
+[XML note]: The note added by Alex S
+  </span>&lt;/<span class="elemname">its:locNote</span>&gt;
+  &lt;/<span class="elemname">its:locNoteRule</span>&gt;
+
+  &lt;/<span class="elemname">its:rules</span>&gt;
+  &lt;/<span class="elemname">head</span>&gt;
+  &lt;<span class="elemname">para</span>&gt;<span class="text">
+The following message appears: </span>&lt;<span class="elemname">msg</span> <span class="attrname">id</span>="<span class="text"><span wics-id="5" class="wics-tip"><span class="wics-notranslate">InvalidParameter</span></span></span>"&gt;<span wics-id="6" class="wics-tip"><span><span class="text"><span class="wics-locnote">Invalid parameter</span></span></span></span>&lt;/<span class="elemname">msg</span>&gt;<span class="text">. And here is some text added for the </span>&lt;<span class="elemname">msg</span> <span class="attrname">id</span>="<span class="text"><span wics-id="7" class="wics-tip"><span class="wics-notranslate">webNote</span></span></span>"&gt;<span wics-id="8" class="wics-tip"><span><span class="text"><span class="wics-locnote">purposes of testing</span></span></span></span>&lt;/<span class="elemname">msg</span>&gt;<span class="text">.
+  </span>&lt;/<span class="elemname">para</span>&gt;
+  &lt;/<span class="elemname">body</span>&gt;
+</body></html>

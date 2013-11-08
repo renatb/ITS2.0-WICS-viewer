@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta charset="utf-8" /> 
+  <title>Locale filter</title>
+ <link href="wics/styles/main.css" rel="stylesheet" type="text/css" /><script type="text/javascript" src="wics/jquery-1.9.1.min.js"></script><script type="text/javascript" src="wics/wics.js"></script><script type="text/javascript">wics_tips = [{localeFilterList:"*-ca",localeFilterType:"include"},{localeFilterList:"*-ca",localeFilterType:"exclude"},{localeFilterList:"*",localeFilterType:"exclude"},{localeFilterList:"",localeFilterType:"exclude"}];</script></head>  
+ <body> 
+  <span wics-id="0" class="wics-tip"><img src="wics/images/locfilter1.png" class="wics-image" /><div its-locale-filter-list="*-ca">
+   <p>Text for Canadian locales.</p>
+  </div><img src="wics/images/locfilter2.png" class="wics-image" /></span>
+  <span wics-id="1" class="wics-tip"><img src="wics/images/locfilter1.png" class="wics-image" /><div its-locale-filter-list="*-ca" its-locale-filter-type="exclude">
+   <p>Text for non-Canadian locales.</p>
+  </div><img src="wics/images/locfilter2.png" class="wics-image" /></span>
+  <span wics-id="2" class="wics-tip"><img src="wics/images/locfilter1.png" class="wics-image" /><div its-locale-filter-list="*" its-locale-filter-type="ExCluDE">
+   <p>Text for no locales.</p>
+  </div><img src="wics/images/locfilter2.png" class="wics-image" /></span>
+  <span wics-id="3" class="wics-tip"><img src="wics/images/locfilter1.png" class="wics-image" /><div its-locale-filter-list="" its-locale-filter-type="EXCLude">
+   <p>Text for all locales.</p>
+  </div><img src="wics/images/locfilter2.png" class="wics-image" /></span>
+ </body>
+</html>

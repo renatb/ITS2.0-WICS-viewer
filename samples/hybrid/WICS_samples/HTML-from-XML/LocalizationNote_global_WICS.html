@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><link href="wics/styles/main.css" rel="stylesheet" type="text/css" /><script type="text/javascript" src="wics/jquery-1.9.1.min.js"></script><script type="text/javascript" src="wics/wics.js"></script><script type="text/javascript">wics_tips = [{withinText:"no"},{withinText:"no"}];</script></head><title>WICS</title>
+    <its:rules xmlns:its="http://www.w3.org/2005/11/its" xmlns:h="http://www.w3.org/1999/xhtml" version="2.0">
+      <its:localeFilterRule selector="//@*" localeFilterList="*" localeFilterType="include" />
+      <its:dirRule dir="ltr" selector="//@*" />
+      <its:translateRule translate="no" selector="//@*" />
+      <its:withinTextRule selector="//h:span" withinText="no" />
+      <its:translateRule translate="no" selector="id('ITS_3')|id('ITS_4')" />
+      <its:locNoteRule locNoteType="alert" selector="id('ITS_1')">
+  <its:locNote>
+[XML note]: Date and time should be in YYYY-DD-MM HH:MM format.
+  </its:locNote>
+  </its:locNoteRule>
+      <its:locNoteRule locNoteType="alert" selector="id('ITS_2')">
+  <its:locNote>
+[XML note]: The note added by Alex S
+  </its:locNote>
+  </its:locNoteRule>
+    </its:rules>
+<body><div title="body">
+  <div title="head">
+  
+  </div>
+  <div title="para">
+The following message appears: <span id="ITS_1" title="msg"><span wics-id="0" class="wics-tip"><img src="wics/images/withinno1.png" class="wics-image" /><span class="_ITS_ATT" id="ITS_3" its-within-text="no" title="id">InvalidParameter</span><img src="wics/images/withinno2.png" class="wics-image" /></span>Invalid parameter</span>. And here is some text added for the <span id="ITS_2" title="msg"><span wics-id="1" class="wics-tip"><img src="wics/images/withinno1.png" class="wics-image" /><span class="_ITS_ATT" id="ITS_4" its-within-text="no" title="id">webNote</span><img src="wics/images/withinno2.png" class="wics-image" /></span>purposes of testing</span>.
+  </div>
+  </div></body></html>

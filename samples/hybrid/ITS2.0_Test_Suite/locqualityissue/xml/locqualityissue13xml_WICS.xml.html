@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8" /><link href="wics/styles/tags.css" rel="stylesheet" type="text/css" /><link href="wics/styles/main.css" rel="stylesheet" type="text/css" /><script type="text/javascript" src="wics/jquery-1.9.1.min.js"></script><script type="text/javascript" src="wics/wics.js"></script><script type="text/javascript">wics_tips = [{translate:"no"},{translate:"no"},{translate:"no"},{translate:"no"},{translate:"no"},{translate:"no"},{locQualityIssuesRef:[{locQualityIssueComment:"\'c\'es\' is unknown. Could be \'c\'est\'",locQualityIssueSeverity:"75",locQualityIssueProfileRef:"http://example.org/qaMovel/v1",locQualityIssueEnabled:"yes"}]},{translate:"no"},{translate:"no"},{translate:"no"},{translate:"no"},{translate:"no"}];</script></head><body><span class="instruction">&lt;?xml version="1.0"?&gt;</span>
+&lt;<span class="elemname">doc</span> <span class="xmlnsname">xmlns:its</span>="<span class="xmlnsvalue">http://www.w3.org/2005/11/its</span>" <span class="itsattrname">its:version</span>="<span class="itsattrvalue">2.0</span>"&gt;
+  &lt;<span class="elemname">file</span>&gt;
+    &lt;<span class="elemname">header</span>&gt;
+      &lt;<span class="elemname">its:rules</span> <span class="attrname">version</span>="<span class="text"><span wics-id="0" class="wics-tip"><span class="wics-notranslate">2.0</span></span></span>"&gt;
+        &lt;<span class="elemname">its:locQualityIssueRule</span> <span class="attrname">selector</span>="<span class="text"><span wics-id="1" class="wics-tip"><span class="wics-notranslate">//mrk[@type='x-itslq']</span></span></span>" <span class="attrname">locQualityIssuesRefPointer</span>="<span class="text"><span wics-id="2" class="wics-tip"><span class="wics-notranslate">@ref</span></span></span>" /&gt;
+      &lt;/<span class="elemname">its:rules</span>&gt;
+    &lt;/<span class="elemname">header</span>&gt;
+    &lt;<span class="elemname">unit</span> <span class="attrname">id</span>="<span class="text"><span wics-id="3" class="wics-tip"><span class="wics-notranslate">1</span></span></span>"&gt;
+      &lt;<span class="elemname">segment</span>&gt;
+        &lt;<span class="elemname">source</span>&gt;<span class="text">This is the content</span>&lt;/<span class="elemname">source</span>&gt;
+        &lt;<span class="elemname">target</span>&gt;&lt;<span class="elemname">mrk</span> <span class="attrname">type</span>="<span class="text"><span wics-id="4" class="wics-tip"><span class="wics-notranslate">x-itslq</span></span></span>" <span class="attrname">ref</span>="<span class="text"><span wics-id="5" class="wics-tip"><span class="wics-notranslate">#lq1</span></span></span>"&gt;<span wics-id="6" class="wics-tip"><span><span class="text"><span class="wics-locqualityissue">c'es</span></span></span></span>&lt;/<span class="elemname">mrk</span>&gt;<span class="text"> le contenu</span>&lt;/<span class="elemname">target</span>&gt;
+      &lt;/<span class="elemname">segment</span>&gt;
+      &lt;<span class="elemname">its:locQualityIssues</span> <span class="attrname">xml:id</span>="<span class="text"><span wics-id="7" class="wics-tip"><span class="wics-notranslate">lq1</span></span></span>"&gt;
+        &lt;<span class="elemname">its:locQualityIssue</span> <span class="attrname">locQualityIssueComment</span>="<span class="text"><span wics-id="8" class="wics-tip"><span class="wics-notranslate">'c'es' is unknown. Could be 'c'est'</span></span></span>" <span class="attrname">locQualityIssueSeverity</span>="<span class="text"><span wics-id="9" class="wics-tip"><span class="wics-notranslate">75</span></span></span>" <span class="attrname">locQualityIssueProfileRef</span>="<span class="text"><span wics-id="10" class="wics-tip"><span class="wics-notranslate">http://example.org/qaMovel/v1</span></span></span>" <span class="attrname">locQualityIssueEnabled</span>="<span class="text"><span wics-id="11" class="wics-tip"><span class="wics-notranslate">yes</span></span></span>" /&gt;
+      &lt;/<span class="elemname">its:locQualityIssues</span>&gt;
+    &lt;/<span class="elemname">unit</span>&gt;
+  &lt;/<span class="elemname">file</span>&gt;
+&lt;/<span class="elemname">doc</span>&gt;
+</body></html>

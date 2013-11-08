@@ -8,9 +8,26 @@
 .wics-withintext      { color: deepskyblue;          }
 
 .wics-image           { vertical-align: middle;      }
-.wics-hint            { cursor: pointer;             }
-.wics-no-hint         { cursor: auto;                }
-.wics-active          { text-decoration: underline;  }
+.wics-tip             { cursor: pointer;             }
+.wics-no-tip          { cursor: auto;                }
+
+
+.wics-fragment {
+	padding: 5px;
+	border: 1px solid #eee;
+	border-radius: 5px;
+	margin-top: 10px;
+}
+
+.wics-fragment-selected { border: 3px solid red; }
+
+
+.wics-tip-selected {
+	-webkit-box-shadow: 0px 0px 11px rgba(6, 122, 255, 1);
+	-moz-box-shadow:    0px 0px 11px rgba(6, 122, 255, 1);
+	box-shadow:         0px 0px 11px rgba(6, 122, 255, 1);
+	text-decoration: underline;
+}
 
 .wics-note {
 	border: 1px solid lightgrey;
@@ -19,7 +36,7 @@
 	margin-bottom: 10px;
 }
 		
-.wics-note-active {
+.wics-note-selected {
 	border-color: black;
 }
 
@@ -52,9 +69,43 @@
 	font-weight: bold;
 }
 		
-.wics-note-text {
-	padding: 10px;
+.wics-note-text { padding: 10px; }
+
+
+#wics-goto-window {
+	font-family: Arial, sans-serif;
+	font-size: 9pt;
+	position: fixed;
+	padding: 15px 20px;
+	border: 1px solid #333;
+	border-radius: 5px;
+	top: 100px;
+	background: #fff;
 }
+
+#wics-goto-num { width: 3em; }
+
+#wics-navbar {
+	padding: 5px 10px 0px 10px;
+	line-height: 23px;
+	overflow: hidden;
+}
+
+#wics-navbar I {
+	font-family: Arial, sans-serif;
+	font-style: normal;
+	font-weight: bold;
+	background: #ddd;
+	border-radius: 4px;
+	font-size: 10px;
+	cursor: pointer;
+	padding: 2px;
+        white-space: nowrap;
+        color: black;
+}
+
+#wics-navbar I SPAN { font-weight: normal; }
+#wics-navbar I:hover { background: #eee; }
 
 #wics-upperframe {
 	height: 250px;

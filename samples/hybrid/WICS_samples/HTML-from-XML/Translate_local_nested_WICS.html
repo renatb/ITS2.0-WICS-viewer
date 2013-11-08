@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><link href="wics/styles/main.css" rel="stylesheet" type="text/css" /><script type="text/javascript" src="wics/jquery-1.9.1.min.js"></script><script type="text/javascript" src="wics/wics.js"></script><script type="text/javascript">wics_tips = [{withinText:"no"},{withinText:"no"},{translate:"no"}];</script></head><title>WICS</title>
+    <its:rules xmlns:its="http://www.w3.org/2005/11/its" xmlns:h="http://www.w3.org/1999/xhtml" version="2.0">
+      <its:localeFilterRule localeFilterType="include" localeFilterList="*" selector="//@*" />
+      <its:dirRule selector="//@*" dir="ltr" />
+      <its:translateRule selector="//@*" translate="no" />
+      <its:withinTextRule withinText="no" selector="//h:span" />
+      <its:translateRule selector="id('ITS_1')|id('ITS_2')" translate="no" />
+      </its:rules>
+<body><div title="myDoc">
+  <div title="body">
+  <div title="par"><span wics-id="0" class="wics-tip"><img src="wics/images/withinno1.png" class="wics-image" /><span class="_ITS_ATT" id="ITS_2" its-within-text="no" title="title">Text</span><img src="wics/images/withinno2.png" class="wics-image" /></span><span wics-id="1" class="wics-tip"><img src="wics/images/withinno1.png" class="wics-image" /><span class="_ITS_ATT" id="ITS_1" its-within-text="no" title="id">100</span><img src="wics/images/withinno2.png" class="wics-image" /></span>The <span wics-id="2" class="wics-tip"><span title="trmark" translate="no"><span class="wics-notranslate">World Wide Web </span><span class="wics-no-tip"><span title="term" translate="yes">Consortium</span></span></span></span> is making the World Wide Web worldwide!</div>
+ </div>
+</div></body></html>
