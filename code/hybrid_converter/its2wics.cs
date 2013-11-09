@@ -47,6 +47,7 @@ namespace its2wics
       public static bool html_mode = false, with_tags = true;
       static string its = "http://www.w3.org/2005/11/its", xlink = "http://www.w3.org/1999/xlink",
                     xml = "http://www.w3.org/XML/1998/namespace", xhtml = "http://www.w3.org/1999/xhtml";
+      static Uri base_uri;
 
       class Variables : Dictionary<string, string>
       {
@@ -81,9 +82,9 @@ namespace its2wics
       class Rules : List<Rule>
       {
         public Rules() {}
-        public Rules(XPathNavigator root, bool html_mode) { if (html_mode) read_from_html(root); else  read_from(root); }
+        public Rules(Uri base_uri, XPathNavigator root, bool html_mode) { if (html_mode) read_from_html(base_uri, root); else  read_from(base_uri, root); }
 
-        void read_from(XPathNavigator root)
+        void read_from(Uri base_uri, XPathNavigator root)
         {
           foreach (XPathNavigator rules in root.SelectDescendants("rules", its, true))
           {
@@ -93,7 +94,8 @@ namespace its2wics
               // Read external rules recursively
               string type = rules.GetAttribute("type", xlink);
               if (!string.IsNullOrEmpty(type) && type != "simple") throw new Exception("Currently unsupported link type: " + type);
-              read_from(new XPathDocument(href).CreateNavigator());
+              Uri uri = new Uri(base_uri, href);
+              read_from(uri, new XPathDocument(uri.ToString()).CreateNavigator());
             }
 
             // Collect variables used in selectors
@@ -111,20 +113,24 @@ namespace its2wics
           }
         }
 
-        void read_from_html(XPathNavigator root)
+        void read_from_html(Uri base_uri, XPathNavigator root)
         {
           XmlNamespaceManager nsmgr = new XmlNamespaceManager(new NameTable());
           nsmgr.AddNamespace("h", xhtml);
 
-          foreach (XPathNavigator link in root.Select("h:head/h:link[@rel='its-rules']", nsmgr))
+          foreach (XPathNavigator link in root.Select("//h:link[@rel='its-rules']", nsmgr))
           {
             string href = link.GetAttribute("href", string.Empty);
-            if (!string.IsNullOrEmpty(href)) read_from(new XPathDocument(href).CreateNavigator());
+            if (!string.IsNullOrEmpty(href))
+            {
+              Uri uri = new Uri(base_uri, href);
+              read_from(uri, new XPathDocument(uri.ToString()).CreateNavigator());
+            }
           }
 
           foreach (XPathNavigator rules in root.Select("//h:script[@type='application/its+xml']", nsmgr))
             using (StringReader sr = new StringReader(rules.Value))
-              read_from(new XPathDocument(sr).CreateNavigator());
+              read_from(base_uri, new XPathDocument(sr).CreateNavigator());
         }
       }
 
@@ -403,7 +409,7 @@ namespace its2wics
               html = Path.GetExtension(path).Equals(".html", StringComparison.InvariantCultureIgnoreCase);
               try
               {
-                reference = open_document(path, html).CreateNavigator();
+                reference = open_document(new Uri(base_uri, path).ToString(), html).CreateNavigator();
                 reference.MoveToFirstChild();
               }
               catch
@@ -469,12 +475,18 @@ namespace its2wics
             foreach (Rule rule in ctx.rules.Where(r => r.node != null && r.node.NamespaceURI == its && r.node.LocalName == name))
             {
               bool parse_local_attributes = ctx.parse_local_attributes;
+              XPathNavigator node = ctx.node;
+              Variables vars = ctx.vars;
+              string attribute_namespace = ctx.attribute_namespace;
               ctx.parse_local_attributes = true;
               ctx.node = rule.node;
               ctx.vars = rule.vars;
               ctx.attribute_namespace = string.Empty;
               bool result = expr.evaluate(ctx);
               ctx.parse_local_attributes = parse_local_attributes;
+              ctx.node = node;
+              ctx.vars = vars;
+              ctx.attribute_namespace = attribute_namespace;
               return result;
             }
           return false;
@@ -556,8 +568,17 @@ namespace its2wics
         protected override void make_its_styles_and_frames(Context ctx, int level)
         {
           string value;
-          if (ctx.values.TryGetValue("translate", out value) && value == "no")
-            ctx.wics_styles.Add(new WicsStyle("wics-notranslate", ctx.values.data(), level));
+          if (ctx.values.TryGetValue("translate", out value))
+            switch (value)
+            {
+              case "no":
+                ctx.wics_styles.Add(new WicsStyle("wics-notranslate", ctx.values.data(), level));
+                break;
+
+              case "yes":
+                if (level == ctx.level) ctx.wics_frames.Add(new WicsFrame(null, null, null, level));
+                break;
+            }
         }
       }
 
@@ -578,7 +599,7 @@ namespace its2wics
         protected override void make_its_styles_and_frames(Context ctx, int level)
         {
           if (ctx.values.ContainsKey("locNoteType"))
-            ctx.wics_styles.Add(new WicsStyle("wics-locnote", ctx.values.data(), level));
+            ctx.wics_styles.Add(new WicsStyle("wics-locnote", level == ctx.level? ctx.values.data() : null, level));
         }
       }
 
@@ -599,8 +620,18 @@ namespace its2wics
         protected override void make_its_styles_and_frames(Context ctx, int level)
         {
           string value;
-          if (ctx.values.TryGetValue("term", out value) && value == "yes")
-            ctx.wics_styles.Add(new WicsStyle("wics-terminology", ctx.values.data(), level));
+          if (ctx.values.TryGetValue("term", out value))
+            switch (value)
+            {
+              case "yes":
+                ctx.wics_styles.Add(new WicsStyle("wics-terminology", ctx.values.data(), level));
+                break;
+
+              case "no":
+                if (level == ctx.level) ctx.wics_frames.Add(new WicsFrame(null, null, null, level));
+                break;
+            }
+
         }
       }
 
@@ -769,7 +800,7 @@ namespace its2wics
         {
           if (ctx.values.ContainsKey("taClassRef") || ctx.values.ContainsKey("taSource") ||
               ctx.values.ContainsKey("taIdentRef") || ctx.values.ContainsKey("taIdent"))
-            ctx.wics_styles.Add(new WicsStyle("wics-textanalysis", ctx.values.data(), level));
+            ctx.wics_styles.Add(new WicsStyle("wics-textanalysis", level == ctx.level? ctx.values.data() : null, level));
         }
       }
 
@@ -968,7 +999,8 @@ namespace its2wics
           {
             string value;
             ctx.wics_styles.Add(new WicsStyle(ctx.values.TryGetValue("locQualityIssueEnabled", out value) &&
-                                              value == "no" ? "wics-locqualityissue-disabled" : "wics-locqualityissue", ctx.values.data(), level));
+                                              value == "no" ? "wics-locqualityissue-disabled" : "wics-locqualityissue",
+                                              level == ctx.level? ctx.values.data() : null, level));
           }
         }
       }
@@ -1125,8 +1157,7 @@ namespace its2wics
       {
         XmlElement span = node.OwnerDocument.CreateElement("span", namespaceURI);
         span.SetAttribute("wics-id", (wics_id++).ToString());
-        span.SetAttribute("class", "wics-hint");
-        if (node.ParentNode != null) node.ParentNode.ReplaceChild(span, node);
+        span.SetAttribute("class", "wics-tip");
         if (script_text.Length > 0) script_text.Append(',');
         script_text.Append('{');
         script_text.Append(data);
@@ -1134,29 +1165,9 @@ namespace its2wics
         return span;
       }
 
-      static XmlElement wrap_in_wics_frames(XmlNode node, string namespaceURI, Context ctx)
+      static void wrap_in_wics_frames(XmlNode node, string namespaceURI, Context ctx)
       {
-        XmlElement span, img, top =  null;
-        foreach (WicsFrame frame in ctx.wics_frames.OrderBy(f => f.level))
-        {
-          span = make_wics_id(node, namespaceURI, frame.data);
-          if (frame.image1 != null)
-          {
-            img = span.OwnerDocument.CreateElement("img", namespaceURI);
-            img.SetAttribute("src", string.Format("wics/images/{0}.png", frame.image1));
-            img.SetAttribute("class", "wics-image");
-            span.AppendChild(img);
-          }
-          span.AppendChild(node);
-          if (frame.image2 != null)
-          {
-            img = span.OwnerDocument.CreateElement("img", namespaceURI);
-            img.SetAttribute("src", string.Format("wics/images/{0}.png", frame.image2));
-            img.SetAttribute("class", "wics-image");
-            span.AppendChild(img);
-          }
-          if (top == null) top = span;
-        }
+        XmlElement span, img;
 
         if (ctx.wics_styles.Count > 0)
         {
@@ -1168,24 +1179,64 @@ namespace its2wics
           }
           if (sb.Length > 0)
           {
-            (span = make_wics_id(node, namespaceURI, sb.ToString())).AppendChild(node);
-            if (top == null) top = span;
+            span = make_wics_id(node, namespaceURI, sb.ToString());
+            node.ParentNode.ReplaceChild(span, node);
+            span.AppendChild(node);
+            node = span;
           }
         }
-        return top;
+
+        foreach (WicsFrame frame in ctx.wics_frames.OrderBy(f => f.level).Reverse<WicsFrame>())
+        {
+          if (frame.image1 == null && frame.image2 == null && string.IsNullOrEmpty(frame.data))
+          {
+            span = node.OwnerDocument.CreateElement("span", namespaceURI);
+            span.SetAttribute("class", "wics-no-tip");
+            node.ParentNode.ReplaceChild(span, node);
+            span.AppendChild(node);
+          }
+          else
+          {
+            span = make_wics_id(node, namespaceURI, frame.data);
+            if (frame.image1 != null)
+            {
+              img = span.OwnerDocument.CreateElement("img", namespaceURI);
+              img.SetAttribute("src", string.Format("wics/images/{0}.png", frame.image1));
+              img.SetAttribute("class", "wics-image");
+              span.AppendChild(img);
+            }
+
+            if (frame.image1 == "domain")
+              node.ParentNode.InsertBefore(span, node);
+            else
+            {
+              node.ParentNode.ReplaceChild(span, node);
+              span.AppendChild(node);
+            }
+
+            if (frame.image2 != null)
+            {
+              img = span.OwnerDocument.CreateElement("img", namespaceURI);
+              img.SetAttribute("src", string.Format("wics/images/{0}.png", frame.image2));
+              img.SetAttribute("class", "wics-image");
+              span.AppendChild(img);
+            }
+          }
+          node = span;
+        }
       }
 
-      static void traverse1(XmlNode node, Context ctx, XmlElement dump)
+      static void traverse1(XmlNode node, Context ctx, XmlNode dump)
       {
         XmlDocument doc = dump.OwnerDocument;
-        XmlElement span, frame = dump;
-        XmlNode text;
+        XmlElement span;
+        XmlNode text, frame = dump;
         switch (node.NodeType)
         {
           case XmlNodeType.Element:
             {
               if ((node.NamespaceURI != its || node.LocalName == "span" || node.LocalName == "ruby") &&
-                  !(html_mode && node.Name == "script" && node.NamespaceURI == xhtml))
+                  !(html_mode && node.LocalName == "script" && node.NamespaceURI == xhtml))
               {
                 apply_rules_dump_its(true, ctx = new Context(node.CreateNavigator(), ctx));
               }
@@ -1229,9 +1280,9 @@ namespace its2wics
               else
               {
                 dump.AppendChild(doc.CreateTextNode(">"));
-                span = doc.CreateElement("span");
-                XmlElement top = wrap_in_wics_frames(span, null, ctx);
-                if (top != null) { dump.AppendChild(top); frame = span; }
+                dump.AppendChild(span = doc.CreateElement("span"));
+                wrap_in_wics_frames(span, null, ctx);
+                if (span.ParentNode == dump) dump.RemoveChild(span); else frame = span;
               }
             }
             break;
@@ -1298,46 +1349,125 @@ namespace its2wics
         }
       }
 
-      static void traverse2(XmlNode node, Context ctx, List<XmlNode> cdata, bool in_body)
+      static XmlNode body_deputy, body_deputy_inner, org_body, body = null;
+
+      static void traverse2(XmlNode node, Context ctx, XmlNode dump, bool in_body)
       {
+        XmlDocument doc = dump.OwnerDocument == null? dump as XmlDocument : dump.OwnerDocument;
+        XmlNode node2 = doc.ImportNode(node, false);
+        dump.AppendChild(node2);
+
         bool wrap = false;
         switch (node.NodeType)
         {
           case XmlNodeType.Element:
-            if (!in_body) in_body = html_mode && node.Name == "body" && node.NamespaceURI == xhtml;
+            (node2 as XmlElement).IsEmpty = (node as XmlElement).IsEmpty;
+            if (html_mode && !in_body && node == org_body) { body = node2; in_body = true; }
             if ((node.NamespaceURI != its || node.LocalName == "span" || node.LocalName == "ruby") &&
-                !(html_mode && node.Name == "script" && node.NamespaceURI == xhtml))
+                !(html_mode && node.LocalName == "script" && node.NamespaceURI == xhtml))
             {
               apply_rules_dump_its(true, ctx = new Context(node.CreateNavigator(), ctx));
-              wrap = !(node as XmlElement).IsEmpty && (!html_mode || in_body);
+              wrap = true;
             }
+
+            if (node.Attributes != null)
+              foreach (XmlAttribute attr in node.Attributes)
+              {
+                (node2 as XmlElement).SetAttributeNode(doc.ImportNode(attr, true) as XmlAttribute);
+                if (html_mode && string.IsNullOrEmpty(attr.NamespaceURI) && attr.LocalName == "alt" && node.NamespaceURI == xhtml && node.LocalName == "img")
+                {
+                  Context ctx_ = new Context(attr.CreateNavigator(), ctx);
+                  apply_rules_dump_its(false, ctx_);
+                  if (ctx_.wics_styles.Count > 0 || ctx_.wics_frames.Count > 0)
+                  {
+                    ctx.wics_styles.AddRange(ctx_.wics_styles);
+                    ctx.wics_frames.AddRange(ctx_.wics_frames);
+                    wrap_in_wics_styles(node2, xhtml, ctx_);
+                    wrap = true;
+                  }
+                }
+              }
             break;
 
           case XmlNodeType.Text:
-            wrap_in_wics_styles(node, xhtml, ctx);
+            if (!html_mode || in_body) wrap_in_wics_styles(node2, xhtml, ctx);
             break;
 
           case XmlNodeType.CDATA:
-            cdata.Add(node);
-            return;
+            if (html_mode)
+            {
+              XmlDocumentFragment fragment = doc.CreateDocumentFragment();
+              fragment.InnerXml = node.Value;
+              dump.ReplaceChild(fragment, node2);
+            }
+            break;
         }
 
+        dump = node2;
         foreach (XmlNode child in node.ChildNodes)
-          traverse2(child, ctx, cdata, in_body);
+        {
+          if (html_mode && !in_body && org_body == null && node == node.OwnerDocument.DocumentElement && child.NodeType == XmlNodeType.Element && child.NamespaceURI == xhtml)
+          {
+            bool meta = false;
+            switch (child.LocalName)
+            {
+              case "base":
+              case "link":
+              case "meta":
+              case "noscript":
+              case "script":
+              case "title":
+                meta = true;
+                break;
+
+              case "style":
+                meta = child.Attributes.GetNamedItem("scoped", xhtml) == null;
+                break;
+            }
+
+            if (!meta)
+            {
+              dump.AppendChild(body = dump.OwnerDocument.CreateElement("body", xhtml));
+              dump = body;
+              in_body = true;
+            }
+          }
+          traverse2(child, ctx, dump, in_body);
+        }
 
         if (wrap)
         {
-          XmlElement temp = node.OwnerDocument.CreateElement("span", xhtml);
-          XmlElement top = wrap_in_wics_frames(temp, xhtml, ctx);
-          if (top != null)
-          {
-            List<XmlNode> children = new List<XmlNode>();
-            foreach (XmlNode child in node.ChildNodes) children.Add(child);
-            foreach (XmlNode child in children)
-              temp.ParentNode.InsertBefore(child, temp);
-            temp.ParentNode.RemoveChild(temp);
-            node.AppendChild(top);
-          }
+          if (html_mode && !in_body) dump = body_deputy_inner;
+          if (html_mode && node.NamespaceURI == xhtml)
+            switch (node.LocalName)
+            {
+              case "body":
+              case "dd":
+              case "dt":
+              case "h1":
+              case "h2":
+              case "h3":
+              case "h4":
+              case "h5":
+              case "h6":
+              case "li":
+              case "p":
+              case "th":
+              case "td":
+                if (dump.ChildNodes.Count == 1)
+                  wrap_in_wics_frames(dump.FirstChild, xhtml, ctx);
+                else
+                {
+                  XmlElement span = doc.CreateElement("span", xhtml);
+                  while (dump.FirstChild != null) span.AppendChild(dump.FirstChild);
+                  dump.AppendChild(span);
+                  wrap_in_wics_frames(span, xhtml, ctx);
+                  while (span.FirstChild != null) span.ParentNode.InsertBefore(span.FirstChild, span);
+                  span.ParentNode.RemoveChild(span);
+                }
+                return;
+            }
+            wrap_in_wics_frames(dump, xhtml, ctx);
         }
       }
 
@@ -1368,8 +1498,10 @@ namespace its2wics
         if (doc.DocumentElement == null) return;
         XPathNavigator root = doc.DocumentElement.CreateNavigator();
 
+        base_uri = new Uri(Path.GetFullPath(in_path));
+
         // Collect ITS rules...
-        foreach (Rule rule in new Rules(root, html_mode))
+        foreach (Rule rule in new Rules(base_uri, root, html_mode))
         {
           XmlNamespaceManager nsmgr = new XmlNamespaceManager(rule.node.NameTable);
           foreach (KeyValuePair<string, string> ns in rule.node.GetNamespacesInScope(XmlNamespaceScope.All)) nsmgr.AddNamespace(ns.Key, ns.Value);
@@ -1400,14 +1532,15 @@ namespace its2wics
         }
 
         // Apply ITS rules and create test output
+        XmlDocument doc2;
         XmlElement head, link, script;
-        XmlDocument doc_ = new XmlDocument();
         if (with_tags)
         {
-          XmlElement html = doc_.CreateElement("html"), meta = doc_.CreateElement("meta"), body = doc_.CreateElement("body");
-          head = doc_.CreateElement("head");
-          link = doc_.CreateElement("link");
-          script = doc_.CreateElement("script");
+          doc2 = new XmlDocument();
+          XmlElement html = doc2.CreateElement("html"), meta = doc2.CreateElement("meta"), body = doc2.CreateElement("body");
+          head = doc2.CreateElement("head");
+          link = doc2.CreateElement("link");
+          script = doc2.CreateElement("script");
           meta.SetAttribute("charset", "utf-8");
           head.AppendChild(meta);
           link.SetAttribute("href", "wics/styles/tags.css");
@@ -1417,32 +1550,37 @@ namespace its2wics
           link = link.Clone() as XmlElement;
           html.AppendChild(head);
           html.AppendChild(body);
-          doc_.AppendChild(html);
+          doc2.AppendChild(html);
 
           traverse1(doc, new Context(root), body);
-          doc = doc_;
         }
         else
         {
-          List<XmlNode> cdata = new List<XmlNode>();
-          traverse2(doc, new Context(root), cdata, false);
           XmlNamespaceManager nsmgr = new XmlNamespaceManager(new NameTable());
           nsmgr.AddNamespace("h", xhtml);
-          head = doc.SelectSingleNode("//h:head", nsmgr) as XmlElement;
+          doc2 = doc.CloneNode(false) as XmlDocument;
+          org_body = doc.SelectSingleNode("//h:body", nsmgr);
+          body_deputy = doc2.CreateElement("body"); body_deputy_inner = doc2.CreateElement("span"); body_deputy.AppendChild(body_deputy_inner);
+          Context ctx = new Context(root);
+          foreach (XmlNode node in doc.ChildNodes)
+            traverse2(node, ctx, doc2, false);
+          if (body_deputy_inner.ParentNode != body_deputy && body != null)
+          {
+            while (body.FirstChild != null) body_deputy_inner.ParentNode.InsertBefore(body.FirstChild, body_deputy_inner);
+            body_deputy_inner.ParentNode.RemoveChild(body_deputy_inner);
+            while (body_deputy.FirstChild != null) body.AppendChild(body_deputy.FirstChild);
+            body_deputy.AppendChild(body_deputy_inner);
+          }
+          head = doc2.SelectSingleNode("//h:head", nsmgr) as XmlElement;
           if (head == null)
           {
-            head = doc.CreateElement("head", xhtml);
-            doc.DocumentElement.PrependChild(head);
+            head = doc2.CreateElement("head", xhtml);
+            doc2.DocumentElement.PrependChild(head);
           }
-          link = doc.CreateElement("link", xhtml);
-          script = doc.CreateElement("script", xhtml);
-          foreach (XmlNode node in cdata)
-          {
-            XmlDocumentFragment fragment = node.OwnerDocument.CreateDocumentFragment();
-            fragment.InnerXml = node.Value;
-            node.ParentNode.ReplaceChild(fragment, node);
-          }
+          link = doc2.CreateElement("link", xhtml);
+          script = doc2.CreateElement("script", xhtml);
         }
+
         link.SetAttribute("href", "wics/styles/main.css");
         link.SetAttribute("rel", "stylesheet");
         link.SetAttribute("type", "text/css");
@@ -1456,7 +1594,7 @@ namespace its2wics
         head.AppendChild(script);
         script = script.Clone() as XmlElement;
         script.RemoveAttribute("src");
-        script_text.Insert(0, "wics_hints = [");
+        script_text.Insert(0, "wics_tips = [");
         script_text.Append("];");
         script.AppendChild(script.OwnerDocument.CreateTextNode(script_text.ToString()));
         head.AppendChild(script);
@@ -1468,7 +1606,7 @@ namespace its2wics
         using (XmlWriter writer = XmlWriter.Create(tw, xws))
         {
           tw.WriteLine("<!DOCTYPE html>");
-          doc.Save(writer);
+          doc2.Save(writer);
         }
       }
     }
