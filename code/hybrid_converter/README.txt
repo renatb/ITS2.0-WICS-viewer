@@ -16,6 +16,42 @@ tags.css
 
 To preview HTML files, copy wics folder to the same folder as the HTML files
 
+=========== User Interface Parameters:
+
+wics.js:
+
+	  fragments: 'p,div',
+- The list of HTML tags used as selectors to split the content into fragments
+- If null value is set, the fragmentation is off
+
+main.css:
+
+wics-notranslate … .wics-withintext - the styles of ITS metadata categories
+wics-image – the style of visual markers (see images folder)
+wics-tip – the style of piece of content to which any metadata (metadata tips) are assigned
+wics-no-tip – the style of piece of content without metadata
+wics-fragment – the style of fragments of content
+wics-fragment-selected – the style of selected fragment
+wics-tip-selected – the style of selected fragment with any metadata tip
+wics-note – the style of metadata tip
+wics-note-selected – the style of selected metadata tip
+wics-note-top – the style of upper frame of metadata tip
+wics-note-close – the style of Close button in metadata tip
+wics-note-name  – the style of header of metadata tip in upper tip frame
+wics-note-text – the style of text of tip in bottom tip frame
+wics-goto-window – the style of "Go to the Fragment" and "Go to the Tip" windows
+wics-goto-num – the style of Edit element in "Go to *" windows.
+wics-navbar – the style of control panel
+wics-navbar I – the style of control panel buttons
+wics-navbar I SPAN – the style of control panel button labels
+wics-navbar I:hover – the style of control panel buttons under mouse pointer
+wics-upperframe – the style of upper pane of content
+wics-lowerframe – the style of bottom pane of metadata tips
+
+tags.css:
+
+- The styles applied to HTML and XML elements when markup preview mode selected in hybrid file format converter command line (-t)
+
 =========== The resources to build its2wics.exe:
 
 its2wics.cs
