@@ -39,3 +39,10 @@ its2wics.exe <input XML or HTML file> <output HTML file> [-t]
 
 -t   Force output with tags for HTML ("markup" output mode)
 
+------------------------------------------------------------- Change Log:
+19 Nov. 2013:
+SgmlReaderDll.dll updated with an error fix
+its2wics.cs updated
+
+08 Nov. 2013:
+wics.js updated

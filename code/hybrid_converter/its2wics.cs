@@ -624,7 +624,7 @@ namespace its2wics
             switch (value)
             {
               case "yes":
-                ctx.wics_styles.Add(new WicsStyle("wics-terminology", ctx.values.data(), level));
+                ctx.wics_styles.Add(new WicsStyle("wics-terminology", level == ctx.level? ctx.values.data() : null, level));
                 break;
 
               case "no":
@@ -1120,9 +1120,12 @@ namespace its2wics
           using (StringWriter sw = new StringWriter())
           using (XmlTextWriter writer = new XmlTextWriter(sw))
           {
-            while (reader.Read())
-              if (reader.NodeType != XmlNodeType.Whitespace)
+            if (reader.Read())
+              do
+              {
+                // if (reader.NodeType != XmlNodeType.Whitespace)
                 writer.WriteNode(reader, true);
+              } while (!reader.EOF);
             doc.LoadXml(sw.ToString());
           }
         }

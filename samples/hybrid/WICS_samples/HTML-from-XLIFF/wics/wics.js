@@ -6,11 +6,10 @@
 
   init: function()
   {
-    var body = $('BODY');
-    body.css('margin', 0);
-    body.html('<div id="wics-navbar"><i class="wics-first-fragment">&lt;&lt; First Fragment <span>[Ctrl+Shift+&#8593;]</span></i> <i class="wics-prev-fragment">&lt; Previous Fragment <span>[Ctrl+&#8593;]</span></i> <i class="wics-next-fragment">Next Fragment &gt; <span>[Ctrl+&#8595;]</span></i> <i class="wics-last-fragment">Last Fragment &gt;&gt; <span>[Ctrl+Shift+&#8595;]</span></i> <i class="wics-goto-fragment">Go To The Fragment <span>[Alt+Enter]</span></i> <i class="wics-open-all-tips">Open All Tips <span>[Shift+Enter]</span></i> <i class="wics-close-all-tips">Close All Tips <span>[Shift+Backspace]</span></i><br/><i class="wics-first-tip">&lt;&lt; First Tip <span>[Ctrl+Shift+&#8592;]</span></i> <i class="wics-prev-tip">&lt; Previous Tip <span>[Ctrl+&#8592;]</span></i> <i class="wics-next-tip">Next Tip &gt; <span>[Ctrl+&#8594;]</span></i> <i class="wics-last-tip">Last Tip &gt;&gt; <span>[Ctrl+Shift+&#8594;]</span></i> <i class="wics-goto-tip">Go To The Tip <span>[Alt+Shift+Enter]</span></i> <i class="wics-open-tip">Open Tip <span>[Enter]</span></i> <i class="wics-close-tip">Close Tip <span>[Backspace]</span></i></div>' +
-              '<div id="wics-upperframe">' + body.html() + '</div><div id="wics-lowerframe"></div>');
+    var org_body = $('BODY').replaceWith('<body><div id="wics-navbar"><i class="wics-first-fragment">&lt;&lt; First Fragment <span>[Ctrl+Shift+&#8593;]</span></i> <i class="wics-prev-fragment">&lt; Previous Fragment <span>[Ctrl+&#8593;]</span></i> <i class="wics-next-fragment">Next Fragment &gt; <span>[Ctrl+&#8595;]</span></i> <i class="wics-last-fragment">Last Fragment &gt;&gt; <span>[Ctrl+Shift+&#8595;]</span></i> <i class="wics-goto-fragment">Go To The Fragment <span>[Alt+Enter]</span></i> <i class="wics-open-all-tips">Open All Tips <span>[Shift+Enter]</span></i> <i class="wics-close-all-tips">Close All Tips <span>[Shift+Backspace]</span></i><br/><i class="wics-first-tip">&lt;&lt; First Tip <span>[Ctrl+Shift+&#8592;]</span></i> <i class="wics-prev-tip">&lt; Previous Tip <span>[Ctrl+&#8592;]</span></i> <i class="wics-next-tip">Next Tip &gt; <span>[Ctrl+&#8594;]</span></i> <i class="wics-last-tip">Last Tip &gt;&gt; <span>[Ctrl+Shift+&#8594;]</span></i> <i class="wics-goto-tip">Go To The Tip <span>[Alt+Shift+Enter]</span></i> <i class="wics-open-tip">Open Tip <span>[Enter]</span></i> <i class="wics-close-tip">Close Tip <span>[Backspace]</span></i></div>' +
+                                    '<div id="wics-upperframe"></div><div id="wics-lowerframe"></div></body>');
     this.upperframe = $('#wics-upperframe');
+    this.upperframe.append(org_body);
     this.lowerframe = $('#wics-lowerframe');
     this.navbar = $('#wics-navbar');
     
